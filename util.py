@@ -85,12 +85,11 @@ def illustrate_preprocessing():
 
 
 def margins_and_hyperplane():
-    
     #gen some data
     np.random.seed(0)
     n = 20
-    X = (np.vstack((np.ones((n,2))*np.array([1,1]), 
-        np.ones((n,2))*np.array([-1,-1]))) + np.random.randn(2*n,2)*0.5)
+    X = (np.vstack((np.ones((n,2))*np.array([0.5,1]), 
+        np.ones((n,2))*np.array([-0.5,-1]))) + np.random.randn(2*n,2)*0.3)
     Y = np.hstack((np.ones(n), np.zeros(n)))
 
     clf = svm.SVC(kernel='linear')
@@ -102,7 +101,7 @@ def margins_and_hyperplane():
     a = -w[0] / w[1]
     xs = np.linspace(-2, 2)
     ys = a * xs - (clf.intercept_[0]) / w[1]
-
+    
     # plot the parallels to the separating hyperplane that pass through the
     # support vectors
     b = clf.support_vectors_[0]
@@ -110,18 +109,35 @@ def margins_and_hyperplane():
     b = clf.support_vectors_[-1]
     ys_up = a * xs + (b[1] - a * b[0])
 
+    #draw a bad margin
+
+    def line_point_grad(x, grad, p1):
+        y = grad*(x - p1[0]) + p1[1]
+        return y
+
+    minp = X[np.argmin(X[:n,0])]
+    maxp = X[n + np.argmax(X[n:,0])]
+    yb = line_point_grad(xs, a*20, np.array([0.5*(minp[0]+maxp[0]),0.0]))
+    yb_down = line_point_grad(xs, a*20, minp)
+    yb_up = line_point_grad(xs, a*20, maxp)
+
     # plot the line, the points, and the nearest vectors to the plane
     fig = pl.figure(figsize=(10,10))
     ax = fig.add_subplot(111)
     ax.plot(xs, ys, 'k-')
+    ax.plot(xs, yb, 'r-')
+    ax.plot(xs, yb_down, 'r--')
+    ax.plot(xs, yb_up, 'r--')
     ax.plot(xs, ys_down, 'k--')
     ax.plot(xs, ys_up, 'k--')
 
     ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1],
                 s=80, facecolors='none')
+    ax.scatter([minp[0],maxp[0]], [minp[1],maxp[1]],
+            s=80, facecolors='none')
     ax.scatter(X[:, 0], X[:, 1], c=Y, cmap=pl.cm.Paired)
-
-    pl.axis('tight')
+    ax.set_xlim((-2,2))
+    ax.set_ylim((-2,2))
     pl.show()
 
 
