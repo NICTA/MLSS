@@ -1,4 +1,5 @@
 from pylab import *
+import matplotlib.cm as cm
 import numpy as np
 import scipy.linalg as la
 from scipy.stats import chi2
@@ -36,41 +37,50 @@ def plot_2d_clusters(X, labels, centers):
     vor = Voronoi(centers)
 
     voronoi_plot_2d(vor, ax)
-    axis('equal')
 
-    colors = ['r', 'b', 'g', 'y', 'o']
-    for k, col in zip(range(len(centers)), colors):
+    K = len(centers)
+    colors = cm.hsv(np.arange(K)/float(K))
+    for k, col in enumerate(colors):
         my_members = labels == k
         scatter(X[my_members, 0], X[my_members, 1], c=col, marker='o', s=20)
 
-    for k, col in zip(range(len(centers)), colors):
+    for k, col in enumerate(colors):
         cluster_center = centers[k]
         scatter(cluster_center[0], cluster_center[1], c=col, marker='o', s=200)
 
+    axis('tight')
+    axis('equal')
     title('Clusters')
 
 
-def plot_2d_GMMs(X, labels, means, covs, percentcontour=0.95, npoints=30):
+def plot_2d_GMMs(X, labels, means, covs, percentcontour=0.66, npoints=30):
 
     phi = np.linspace(-np.pi, np.pi, npoints)
-    circle = np.array([np.sin(phi), np.cos(phi)])
+    circle = np.array([np.sin(phi), np.cos(phi)]).T
 
     figure(figsize=(10, 10))
     gca()
-    axis('equal')
 
-    colors = ['r', 'b', 'g', 'y', 'o']
-    for k, col in zip(range(len(means)), colors):
+    clabels = set(labels)
+    K = len(clabels)
+    colors = cm.hsv(np.arange(K)/float(K))
+    for k, col in zip(clabels, colors):
+
+        # points
         my_members = labels == k
         scatter(X[my_members, 0], X[my_members, 1], c=col, marker='o', s=20)
 
-        cluster_center = means[k]
+        # means
+        cluster_center = means[k, :]
         scatter(cluster_center[0], cluster_center[1], c=col, marker='o', s=200)
 
-        E, l, _ = la.svd(np.array(covs[k]) * chi2.ppf(percentcontour, [3]))
-        covpoints = (np.sqrt(l) * E).dot(circle)
-        plot(covpoints[:, 0], covpoints[:, 1], color=col)
+        # covariance
+        L = la.cholesky(np.array(covs[k]) * chi2.ppf(percentcontour, [3]))
+        covpoints = circle.dot(L) + means[k, :]
+        plot(covpoints[:, 0], covpoints[:, 1], color=col, linewidth=3)
 
+    axis('tight')
+    axis('equal')
     title('Clusters')
 
 
@@ -88,14 +98,14 @@ def load_2d_hard():
     Returns non-isotropoic data to motivate the use of non-euclidean norms
     """
 
-    centres = [[5, -1], [-2, 0], [0, 3]]
+    centres = [[3, -1], [-2, 0], [0, 3]]
     covs = []
     covs.append([[3, 2], [2, 1]])
     covs.append([[1, -2], [-2, 3]])
     covs.append([[1, 0], [0, 1]])
 
-    X0 = np.random.multivariate_normal(centres[0], covs[0], 300)
-    X1 = np.random.multivariate_normal(centres[1], covs[1], 300)
+    X0 = np.random.multivariate_normal(centres[0], covs[0], 1000)
+    X1 = np.random.multivariate_normal(centres[1], covs[1], 500)
     X2 = np.random.multivariate_normal(centres[2], covs[2], 300)
 
     X = np.concatenate((X0, X1, X2))
