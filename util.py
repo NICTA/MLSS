@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import scipy.linalg
 import matplotlib.pyplot as pl
+from mpl_toolkits.mplot3d import Axes3D
 from sklearn import svm
 
 def load_data():
@@ -34,7 +35,7 @@ def whitening_matrix(X):
 
 
 def plot_svm(X, Y, svm_instance, xdim1=0, xdim2=1, minbound=(-3,-3),
-        maxbound=(-3,-3), resolution=(100,100)):
+        maxbound=(3,3), resolution=(100,100)):
     """ Plot any two dimensions from an SVM"""
     # build the meshgrid for the two dims we care about
     d = svm_instance.shape_fit_[1]
@@ -49,15 +50,19 @@ def plot_svm(X, Y, svm_instance, xdim1=0, xdim2=1, minbound=(-3,-3),
     Z = svm_instance.decision_function(query)
     Z = Z.reshape(xx.shape)
 
-    pl.imshow(Z, interpolation='nearest',
+    fig = pl.figure(figsize=(10,10))
+    ax = fig.add_subplot(111)
+
+    ax.imshow(Z, interpolation='nearest',
             extent=(xx.min(), xx.max(), yy.min(), yy.max()), aspect='auto',
             origin='lower', cmap=pl.cm.PuOr_r)
-    contours = pl.contour(xx, yy, Z, levels=[0], linewidths=2,
+    contours = ax.contour(xx, yy, Z, levels=[0], linewidths=2,
             linetypes='--')
-    pl.scatter(X[:, xdim1], X[:, xdim2], s=30, c=Y, cmap=pl.cm.Paired)
-    pl.xticks(())
-    pl.yticks(())
-    pl.axis([minbound[0], maxbound[0], minbound[1], maxbound[1]])
+    ax.scatter(X[:, xdim1], X[:, xdim2], s=30, c=Y, cmap=pl.cm.Paired)
+    # ax.set_xticks(())
+    # pl.yticks(())
+    ax.set_xlim((minbound[0], maxbound[0]))
+    ax.set_ylim((minbound[1], maxbound[1]))
     pl.show()
  
 
@@ -141,5 +146,41 @@ def margins_and_hyperplane():
     pl.show()
 
 
+def hard_data():
+    #gen some data
+    np.random.seed(0)
+    epsilon = 0.05
+    n = 5000
+    X1 = np.random.randn(n,2)
+    X2 = np.random.randn(n,2)
+    valid1 = X1[:,0]**2 + X1[:,1]**2 < (0.5 - epsilon)
+    valid2 = np.logical_and((X2[:,0]**2 + X2[:,1]**2 > (0.5 + epsilon)),
+            (X2[:,0]**2 + X2[:,1]**2 < 1.0))
+
+    X1 = X1[valid1]
+    X2 = X2[valid2]
+    Y1 = np.ones(X1.shape[0])
+    Y2 = np.zeros(X2.shape[0])
+    X = np.vstack((X1,X2))
+    Y = np.hstack((Y1,Y2))
+    Z = np.sqrt(2)*X[:,0]*X[:,1]
+    return X, Y, Z
+
+def nonlinear_example():
+    X, Y, Z = hard_data()
+    fig = pl.figure(figsize=(20,10))
+    ax = fig.add_subplot(121)
+    ax.scatter(X[:, 0], X[:, 1], c=Y, cmap=pl.cm.Paired)
+    ax = fig.add_subplot(122, projection='3d')
+    ax.scatter(X[:,0]**2, X[:,1]**2, Z, c=Y, cmap=pl.cm.Paired)
+    pl.show()
+
+def nonlinear_svm():
+    X, Y, Z = hard_data()
+    clf = svm.SVC(kernel='rbf')
+    clf.fit(X, Y)
+    plot_svm(X, Y, clf, 0,1, (-1.5,-1.5), (1.5,1.5)) 
+    
+
 if __name__ == "__main__":
-    margins_and_hyperplane()
+    nonlinear_example()
