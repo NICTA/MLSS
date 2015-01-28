@@ -58,4 +58,27 @@ def plot_svm(X, Y, svm_instance, xdim1=0, xdim2=1, minbound=(-3,-3),
     pl.yticks(())
     pl.axis([minbound[0], maxbound[0], minbound[1], maxbound[1]])
     pl.show()
+ 
+
+def illustrate_preprocessing():
+    x = np.random.multivariate_normal(np.array([5.0,5.0]),
+            np.array([[5.0,3.0],[3.0,4.0]]),size=1000)
+    x_demean = x - np.mean(x, axis=0)
+    x_unitsd = x_demean/(np.std(x_demean,axis=0))
+    x_whiten = np.dot(x_demean, whitening_matrix(x_demean))
+
+    fig = pl.figure(figsize=(10,10))
+    
+    def mk_subplot(n, data, label):
+        ax = fig.add_subplot(2,2,n)
+        ax.scatter(data[:,0], data[:,1])
+        ax.set_xlim((-10,10))
+        ax.set_ylim((-10,10))
+        ax.set_xlabel(label)
+
+    mk_subplot(1, x, "Original")
+    mk_subplot(2, x_demean, "De-meaned")
+    mk_subplot(3, x_unitsd, "Unit SD")
+    mk_subplot(4, x_whiten, "Whitened")
+    pl.show()
 
