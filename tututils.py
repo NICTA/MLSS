@@ -1,5 +1,7 @@
 from pylab import *
 import numpy as np
+import scipy.linalg as la
+from scipy.stats import chi2
 from scipy.spatial import Voronoi, voronoi_plot_2d
 
 from sklearn.cluster import KMeans
@@ -28,7 +30,7 @@ def plot_2d_clusters(X, labels, centers):
     plot the clusters
     """
     # Plot the true clusters
-    fig = figure(figsize=(10, 10))
+    figure(figsize=(10, 10))
     ax = gca()
 
     vor = Voronoi(centers)
@@ -48,6 +50,30 @@ def plot_2d_clusters(X, labels, centers):
     title('Clusters')
 
 
+def plot_2d_GMMs(X, labels, means, covs, percentcontour=0.95, npoints=30):
+
+    phi = np.linspace(-np.pi, np.pi, npoints)
+    circle = np.array([np.sin(phi), np.cos(phi)])
+
+    figure(figsize=(10, 10))
+    gca()
+    axis('equal')
+
+    colors = ['r', 'b', 'g', 'y', 'o']
+    for k, col in zip(range(len(means)), colors):
+        my_members = labels == k
+        scatter(X[my_members, 0], X[my_members, 1], c=col, marker='o', s=20)
+
+        cluster_center = means[k]
+        scatter(cluster_center[0], cluster_center[1], c=col, marker='o', s=200)
+
+        E, l, _ = la.svd(np.array(covs[k]) * chi2.ppf(percentcontour, [3]))
+        covpoints = (np.sqrt(l) * E).dot(circle)
+        plot(covpoints[:, 0], covpoints[:, 1], color=col)
+
+    title('Clusters')
+
+
 def load_2d_simple():
     """
     Should be easily clustered with K-Means.
@@ -62,14 +88,17 @@ def load_2d_hard():
     Returns non-isotropoic data to motivate the use of non-euclidean norms
     """
 
-    centres = [[1, 0.75], [1, -0.75], [0, 0]]
+    centres = [[5, -1], [-2, 0], [0, 3]]
+    covs = []
+    covs.append([[3, 2], [2, 1]])
+    covs.append([[1, -2], [-2, 3]])
+    covs.append([[1, 0], [0, 1]])
 
-    X0, labels0_true = make_blobs(n_samples=300, centers=centres[0], cluster_std=[[0.6, 0.1]])
-    X1, labels1_true = make_blobs(n_samples=300, centers=centres[1], cluster_std=[[0.6, 0.1]])
-    X2, labels2_true = make_blobs(n_samples=300, centers=centres[2], cluster_std=[[0.6, 0.1]])
+    X0 = np.random.multivariate_normal(centres[0], covs[0], 300)
+    X1 = np.random.multivariate_normal(centres[1], covs[1], 300)
+    X2 = np.random.multivariate_normal(centres[2], covs[2], 300)
 
     X = np.concatenate((X0, X1, X2))
-    labels_true = np.concatenate((labels0_true, labels1_true+1, labels2_true+2))
 
     return X
 
