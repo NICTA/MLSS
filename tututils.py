@@ -30,6 +30,14 @@ def plot_2d_clusters(X, labels, centers):
     Given an observation array, a label vector, and the location of the centers
     plot the clusters
     """
+
+    clabels = set(labels)
+    K = len(clabels)
+
+    if len(centers) != K:
+        raise ValueError("Expecting the number of unique labels and centres to"
+                         " be the same!")
+
     # Plot the true clusters
     figure(figsize=(10, 10))
     ax = gca()
@@ -38,7 +46,6 @@ def plot_2d_clusters(X, labels, centers):
 
     voronoi_plot_2d(vor, ax)
 
-    K = len(centers)
     colors = cm.hsv(np.arange(K)/float(K))
     for k, col in enumerate(colors):
         my_members = labels == k
@@ -54,15 +61,25 @@ def plot_2d_clusters(X, labels, centers):
 
 
 def plot_2d_GMMs(X, labels, means, covs, percentcontour=0.66, npoints=30):
+    """
+    Given an observation array, a label vector (integer values), and GMM mean
+    and covariance parameters, plot the clusters and parameters.
+    """
+
+    clabels = set(labels)
+    K = len(clabels)
+
+    if len(means) != len(covs) != K:
+        raise ValueError("Expecting the number of unique labels, means and"
+                         "covariances to be the same!")
 
     phi = np.linspace(-np.pi, np.pi, npoints)
+
     circle = np.array([np.sin(phi), np.cos(phi)]).T
 
     figure(figsize=(10, 10))
     gca()
 
-    clabels = set(labels)
-    K = len(clabels)
     colors = cm.hsv(np.arange(K)/float(K))
     for k, col in zip(clabels, colors):
 
@@ -89,13 +106,15 @@ def load_2d_simple():
     Should be easily clustered with K-Means.
     """
     centres = [[1, 1], [-0.5, 0], [1, -1]]
-    X, labels_true = make_blobs(n_samples=1000, centers=centres, cluster_std=[[0.3, 0.3]])
+    X, labels_true = make_blobs(n_samples=1000, centers=centres,
+                                cluster_std=[[0.3, 0.3]])
     return X
 
 
 def load_2d_hard():
     """
-    Returns non-isotropoic data to motivate the use of non-euclidean norms
+    Returns non-isotropoic data to motivate the use of non-euclidean norms (as
+    well as the ground truth).
     """
 
     centres = [[3, -1], [-2, 0], [0, 3]]
@@ -109,8 +128,9 @@ def load_2d_hard():
     X2 = np.random.multivariate_normal(centres[2], covs[2], 300)
 
     X = np.concatenate((X0, X1, X2))
+    labels = np.concatenate((np.zeros(1000), np.ones(500), 2*np.ones(300)))
 
-    return X
+    return X, labels
 
 
 def ex1():
