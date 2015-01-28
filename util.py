@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import scipy.linalg
 import matplotlib.pyplot as pl
+from sklearn import svm
 
 def load_data():
     with open("titanic.csv") as f:
@@ -82,3 +83,47 @@ def illustrate_preprocessing():
     mk_subplot(4, x_whiten, "Whitened")
     pl.show()
 
+
+def margins_and_hyperplane():
+    
+    #gen some data
+    np.random.seed(0)
+    n = 20
+    X = (np.vstack((np.ones((n,2))*np.array([1,1]), 
+        np.ones((n,2))*np.array([-1,-1]))) + np.random.randn(2*n,2)*0.5)
+    Y = np.hstack((np.ones(n), np.zeros(n)))
+
+    clf = svm.SVC(kernel='linear')
+    clf.fit(X, Y)
+
+    # Note the following code comes from a scikit learn example...
+    # get the separating hyperplane
+    w = clf.coef_[0]
+    a = -w[0] / w[1]
+    xs = np.linspace(-2, 2)
+    ys = a * xs - (clf.intercept_[0]) / w[1]
+
+    # plot the parallels to the separating hyperplane that pass through the
+    # support vectors
+    b = clf.support_vectors_[0]
+    ys_down = a * xs + (b[1] - a * b[0])
+    b = clf.support_vectors_[-1]
+    ys_up = a * xs + (b[1] - a * b[0])
+
+    # plot the line, the points, and the nearest vectors to the plane
+    fig = pl.figure(figsize=(10,10))
+    ax = fig.add_subplot(111)
+    ax.plot(xs, ys, 'k-')
+    ax.plot(xs, ys_down, 'k--')
+    ax.plot(xs, ys_up, 'k--')
+
+    ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1],
+                s=80, facecolors='none')
+    ax.scatter(X[:, 0], X[:, 1], c=Y, cmap=pl.cm.Paired)
+
+    pl.axis('tight')
+    pl.show()
+
+
+if __name__ == "__main__":
+    margins_and_hyperplane()
