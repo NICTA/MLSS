@@ -48,7 +48,11 @@ class GaussianMixture:
 
 		cn = ax[0].contourf(x1,x2,self.rv1.pdf(pos))
 		cn2 = ax[1].contourf(x1,x2,self.rv0.pdf(pos))
-		cn3 = ax[2].contourf(x1,x2,a/(1.0+a))
+		z = a/(1.0+a)
+		cn3 = ax[2].contourf(x1,x2,z)
+		ct = ax[2].contour(cn3,levels=[0.5])
+		ax[2].clabel(ct)
+
 
 		if data:
 			X,Y = data
@@ -79,8 +83,8 @@ class GaussianMixture:
 
 
 		
-def load_data():
-    with open("titanic.csv") as f:
+def load_data_(filename):
+    with open(filename) as f:
         g = (",".join([i[1],i[2],i[4],i[5],i[6],i[7],i[9],i[11]]).encode(encoding='UTF-8') 
                 for i in csv.reader(f,delimiter=",",quotechar='"'))
         data = np.genfromtxt(g, delimiter=",",names=True,
@@ -98,6 +102,14 @@ def load_data():
     X = np.vstack((passenger_class, is_female, sibsp, parch, fare, embarked)).T
     Y = survived 
     return X, Y
+
+def load_data():
+	return load_data_("titanic.csv")
+	
+
+def load_test_data():
+	return load_test_data()
+
 
 
 def whitening_matrix(X):
