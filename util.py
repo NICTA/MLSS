@@ -4,7 +4,81 @@ import scipy.linalg
 import matplotlib.pyplot as pl
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn import svm
+from scipy.stats import multivariate_normal
+from scipy.stats import bernoulli
 
+print("version",1)
+
+class GaussianMixture:
+		
+	def __init__(self,mean0,cov0,mean1,cov1):
+		""" construct a mixture of two gaussians. mean0 is 2x1 vector of means for class 0, cov0 is 2x2 covariance matrix for class 0. 
+				Similarly for class 1"""
+		self.mean0 = mean0
+		self.mean1 = mean1
+		self.cov0 = cov0
+		self.cov1 = cov1
+		self.rv0 = multivariate_normal(mean0, cov0)
+		self.rv1 = multivariate_normal(mean1, cov1)
+	
+	def plot(self,data=None):
+		x1 = np.linspace(-4,4,100)
+		x2 = np.linspace(-4,4,100)
+		X1,X2 = np.meshgrid(x1,x2)
+		pos = np.empty(X1.shape+(2,))
+		pos[:,:,0] = X1
+		pos[:,:,1]= X2
+		a = self.rv1.pdf(pos)/self.rv0.pdf(pos)
+		
+		if data:
+			nplots = 4
+		else:
+			nplots = 3
+		fig,ax = pl.subplots(1,nplots,figsize = (5*nplots,5))
+		[ax[i].spines['left'].set_position('zero') for i in range(0,nplots)]
+		[ax[i].spines['right'].set_color('none') for i in range(0,nplots)]
+		[ax[i].spines['bottom'].set_position('zero') for i in range(0,nplots)]
+		[ax[i].spines['top'].set_color('none') for i in range(0,nplots)]
+	
+		ax[0].set_title("p(x1,x2|y = 1")
+		ax[1].set_title("p(x1,x2|y = 0")
+		ax[2].set_title("P(y = 1|x1,x2)")
+		[ax[i].set_xlim([-4,4]) for i in range(0,3)]
+		[ax[i].set_ylim([-4,4]) for i in range(0,3)]
+
+		cn = ax[0].contourf(x1,x2,self.rv1.pdf(pos))
+		cn2 = ax[1].contourf(x1,x2,self.rv0.pdf(pos))
+		cn3 = ax[2].contourf(x1,x2,a/(1.0+a))
+
+		if data:
+			X,Y = data
+			colors = ["blue" if x < 1 else "red" for x in Y]
+			x = X[:,0]
+			y = X[:,1]
+			yis1 = np.where(Y==1)[0]
+			yis0 = np.where(Y!=1)[0]
+			ax[3].set_title("Samples colored by class")
+			ax[3].scatter(x,y,s=30,c=colors,alpha=.5)
+			ax[0].scatter(x[yis1],y[yis1],s=5,c=colors,alpha=.3)	
+			ax[1].scatter(x[yis0],y[yis0],s=5,c=colors,alpha=.3)	
+			ax[2].scatter(x,y,s=5,c=colors,alpha=.3)	
+		pl.show()
+	 
+	def sample(self,n_samples,py,plot=False):
+		"""samples Y according to py and corresponding features x1,x2 according to the gaussian for the corresponding class"""
+		Y = bernoulli.rvs(py,size=n_samples)
+		X = np.zeros((n_samples,2))
+		for i in range(n_samples):
+			if Y[i] == 1:
+				X[i,:] = self.rv1.rvs()
+			else:
+				X[i,:] = self.rv0.rvs()
+		if plot:
+			self.plot(data=(X,Y))
+		return X,Y
+
+
+		
 def load_data():
     with open("titanic.csv") as f:
         g = (",".join([i[1],i[2],i[4],i[5],i[6],i[7],i[9],i[11]]).encode(encoding='UTF-8') 
@@ -182,5 +256,5 @@ def nonlinear_svm():
     plot_svm(X, Y, clf, 0,1, (-1.5,-1.5), (1.5,1.5)) 
     
 
-if __name__ == "__main__":
-    nonlinear_example()
+#if __name__ == "__main__":
+#    nonlinear_example()
