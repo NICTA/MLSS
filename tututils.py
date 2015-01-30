@@ -6,7 +6,7 @@ from scipy.stats import chi2
 from scipy.spatial import Voronoi, voronoi_plot_2d
 
 from sklearn.cluster import KMeans
-from sklearn.datasets import load_digits, make_moons, make_blobs
+from sklearn.datasets import make_moons, make_blobs
 from sklearn.metrics import euclidean_distances
 
 def kmeans_centers(X, k=3):

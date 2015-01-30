@@ -4,7 +4,8 @@
   * If struggling allow them to import sklearn's kmeans
 - simple 2d example
 - harder 2d example
-- image compression example
+- image compression example. Show colors used for labels?
+ Make an exercise to compare different K values.
 
 
 # Helper Functions in the tututils library
