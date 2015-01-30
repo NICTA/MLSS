@@ -9,6 +9,8 @@ from scipy.stats import bernoulli
 
 print("version",1)
 
+
+
 class GaussianMixture:
 		
 	def __init__(self,mean0,cov0,mean1,cov1):
@@ -100,15 +102,16 @@ def load_data_(filename):
     embarked = np.array([embark_dict[k] for k in data['Embarked']])
     # skip age for the moment because of the missing data
     X = np.vstack((passenger_class, is_female, sibsp, parch, fare, embarked)).T
-    Y = survived 
+    Y = survived
+ 
     return X, Y
 
 def load_data():
-	return load_data_("titanic.csv")
+	return load_data_("titanic_train.csv")
 	
 
 def load_test_data():
-	return load_test_data()
+	return load_data_("titanic_test.csv")
 
 
 
