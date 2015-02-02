@@ -218,12 +218,12 @@ def margins_and_hyperplane():
     # plot the line, the points, and the nearest vectors to the plane
     fig = pl.figure(figsize=(10,10))
     ax = fig.add_subplot(111)
-    ax.plot(xs, ys, 'k-')
+    ax.plot(xs, ys, 'g-')
     ax.plot(xs, yb, 'r-')
     ax.plot(xs, yb_down, 'r--')
     ax.plot(xs, yb_up, 'r--')
-    ax.plot(xs, ys_down, 'k--')
-    ax.plot(xs, ys_up, 'k--')
+    ax.plot(xs, ys_down, 'g--')
+    ax.plot(xs, ys_up, 'g--')
 
     ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1],
                 s=80, facecolors='none')
