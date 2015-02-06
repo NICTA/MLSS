@@ -58,7 +58,7 @@ class GaussianMixture:
 
 		if data:
 			X,Y = data
-			colors = ["blue" if x < 1 else "red" for x in Y]
+			colors = ["blue" if target < 1 else "red" for target in Y]
 			x = X[:,0]
 			y = X[:,1]
 			yis1 = np.where(Y==1)[0]
