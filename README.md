@@ -15,6 +15,9 @@ Be sure to click **I WANT PYTHON 3.4**. Direct download links are:
     ipython notebook
 
 
+If you run into trouble, ask one of the friendly tutors. Or start reading the notebook in 
+readonly mode at [nbviewer.ipython.org](http://nbviewer.ipython.org/github/hardbyte/python-ml-tut/blob/master/Intro%20to%20python.ipynb)
+
 ## Begin the tutorial
 
 Open the `Intro to python.ipynb` Notebook and start working through the exercises.
@@ -28,67 +31,77 @@ Just make sure you have all the requirements installed for this tutorial by runn
 
 # Python Quickstart
 
-# Python Tutor's 10-minute intro to Python
+# New to Python?
 
+## Resources
 
-    # numbers!
-    age = 26
-    pi = 3.14159
-    
-    # strings!
-    s = 'Rutherford Birchard Hayes'
-    tokens = s.split()
-    firstName = tokens[0]
-    middleName = tokens[1]
-    lastName = tokens[2]
-    s2 = firstName + ' ' + middleName + ' ' + lastName
-    
-    # 'if' statement - indentation matters!
-    if (s == s2):
-        print('yes!!!')
-    else:
-        print('nooooooo')
-    
-    # list (mutable sequence)
-    beatles = ['John', 'Paul', 'George']
-    beatles.append('Ringo')
-    
-    # 'for' loop - indentation matters!
-    for b in beatles:
-        print('Hello ' + b)
-    
-    # tuple (immutable sequence)
-    ages = (18, 21, 28, 21, 22, 18, 19, 34, 9)
-    
-    # set (no order, no duplicates)
-    uniqueAges = set(ages)
-    uniqueAges.add(18) # already in set, no effect
-    uniqueAges.remove(21)
-    
-    # no guaranteed order when iterating over a set
-    for thisAge in uniqueAges:
-        print(thisAge)
-    
-    # testing set membership
-    if 18 in uniqueAges:
-        print('There is an 18-year-old present!')
-    
-    # sorting
-    beatles.sort() # in-place
-    orderedUniqueAges = sorted(uniqueAges) # new list
-    
-    # dict - mapping unique keys to values
-    netWorth = {}
-    netWorth['Donald Trump'] = 3000000000
-    netWorth['Bill Gates'] = 58000000000
-    netWorth['Tom Cruise'] = 40000000
-    netWorth['Joe Postdoc'] = 20000
-    
-    # iterating over key-value pairs:
-    for (person, worth) in netWorth.items():
-        if worth < 1000000:
-            print('haha ' + person + ' is not a millionaire')
-    
-    # testing dict membership
-    if 'Tom Cruise' in netWorth:
-        print('show me the money!')
+- [Learn Python The Hardway](http://learnpythonthehardway.org/book/)
+- [Online Python Interactive Debugger](http://people.csail.mit.edu/pgbovine/python/)
+- [Dive into Python 3](http://getpython3.com/diveintopython3/)
+- [Interactive Python](http://interactivepython.org/courselib/static/thinkcspy/index.html)
+
+## Intro to Python Cheatsheet
+
+```python
+# numbers!
+age = 26
+pi = 3.14159
+
+# strings!
+s = 'Rutherford Birchard Hayes'
+tokens = s.split()
+firstName = tokens[0]
+middleName = tokens[1]
+lastName = tokens[2]
+s2 = firstName + ' ' + middleName + ' ' + lastName
+
+# 'if' statement - indentation matters!
+if (s == s2):
+    print('yes!!!')
+else:
+    print('nooooooo')
+
+# list (mutable sequence)
+beatles = ['John', 'Paul', 'George']
+beatles.append('Ringo')
+
+# 'for' loop - indentation matters!
+for b in beatles:
+    print('Hello ' + b)
+
+# tuple (immutable sequence)
+ages = (18, 21, 28, 21, 22, 18, 19, 34, 9)
+
+# set (no order, no duplicates)
+uniqueAges = set(ages)
+uniqueAges.add(18) # already in set, no effect
+uniqueAges.remove(21)
+
+# no guaranteed order when iterating over a set
+for thisAge in uniqueAges:
+    print(thisAge)
+
+# testing set membership
+if 18 in uniqueAges:
+    print('There is an 18-year-old present!')
+
+# sorting
+beatles.sort() # in-place
+orderedUniqueAges = sorted(uniqueAges) # new list
+
+# dict - mapping unique keys to values
+netWorth = {}
+netWorth['Donald Trump'] = 3000000000
+netWorth['Bill Gates'] = 58000000000
+netWorth['Tom Cruise'] = 40000000
+netWorth['Joe Postdoc'] = 20000
+
+# iterating over key-value pairs:
+for (person, worth) in netWorth.items():
+    if worth < 1000000:
+        print('haha ' + person + ' is not a millionaire')
+
+# testing dict membership
+if 'Tom Cruise' in netWorth:
+    print('show me the money!')
+```
