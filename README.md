@@ -19,3 +19,12 @@ Be sure to click **I WANT PYTHON 3.4**. Direct download links are:
 
 Open the `Intro to python.ipynb` Notebook and start working through the exercises.
 
+
+## Already have Python 3.4?
+ 
+Just make sure you have all the requirements installed for this tutorial by running:
+
+    pip install -r requirements.txt
+
+
+   
