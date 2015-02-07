@@ -28,6 +28,67 @@ Just make sure you have all the requirements installed for this tutorial by runn
 
 # Python Quickstart
 
-<iframe width="1600" height="900" frameborder="0" 
-      src="http://pythontutor.com/iframe-embed.html#code=%23+Python+Tutor's+10-minute+intro+to+Python%0A%0A%23+numbers!%0Aage+%3D+26%0Api+%3D+3.14159%0A%0A%23+strings!%0As+%3D+'Rutherford+Birchard+Hayes'%0Atokens+%3D+s.split()%0AfirstName+%3D+tokens%5B0%5D%0AmiddleName+%3D+tokens%5B1%5D%0AlastName+%3D+tokens%5B2%5D%0As2+%3D+firstName+%2B+'+'+%2B+middleName+%2B+'+'+%2B+lastName%0A%0A%23+'if'+statement+-+indentation+matters!%0Aif+(s+%3D%3D+s2)%3A%0A++++print('yes!!!')%0Aelse%3A%0A++++print('nooooooo')%0A%0A%23+list+(mutable+sequence)%0Abeatles+%3D+%5B'John',+'Paul',+'George'%5D%0Abeatles.append('Ringo')%0A%0A%23+'for'+loop+-+indentation+matters!%0Afor+b+in+beatles%3A%0A++++print('Hello+'+%2B+b)%0A%0A%23+tuple+(immutable+sequence)%0Aages+%3D+(18,+21,+28,+21,+22,+18,+19,+34,+9)%0A%0A%23+set+(no+order,+no+duplicates)%0AuniqueAges+%3D+set(ages)%0AuniqueAges.add(18)+%23+already+in+set,+no+effect%0AuniqueAges.remove(21)%0A%0A%23+no+guaranteed+order+when+iterating+over+a+set%0Afor+thisAge+in+uniqueAges%3A%0A++++print(thisAge)%0A%0A%23+testing+set+membership%0Aif+18+in+uniqueAges%3A%0A++++print('There+is+an+18-year-old+present!')%0A%0A%23+sorting%0Abeatles.sort()+%23+in-place%0AorderedUniqueAges+%3D+sorted(uniqueAges)+%23+new+list%0A%0A%23+dict+-+mapping+unique+keys+to+values%0AnetWorth+%3D+%7B%7D%0AnetWorth%5B'Donald+Trump'%5D+%3D+3000000000%0AnetWorth%5B'Bill+Gates'%5D+%3D+58000000000%0AnetWorth%5B'Tom+Cruise'%5D+%3D+40000000%0AnetWorth%5B'Joe+Postdoc'%5D+%3D+20000%0A%0A%23+iterating+over+key-value+pairs%3A%0Afor+(person,+worth)+in+netWorth.items()%3A%0A++++if+worth+%3C+1000000%3A%0A++++++++print('haha+'+%2B+person+%2B+'+is+not+a+millionaire')%0A%0A%23+testing+dict+membership%0Aif+'Tom+Cruise'+in+netWorth%3A%0A++++print('show+me+the+money!')&cumulative=false&heapPrimitives=false&drawParentPointers=false&textReferences=false&showOnlyOutputs=false&py=3&curInstr=0&codeDivWidth=550&codeDivHeight=400"> </iframe>
-      
+# Python Tutor's 10-minute intro to Python
+
+
+    # numbers!
+    age = 26
+    pi = 3.14159
+    
+    # strings!
+    s = 'Rutherford Birchard Hayes'
+    tokens = s.split()
+    firstName = tokens[0]
+    middleName = tokens[1]
+    lastName = tokens[2]
+    s2 = firstName + ' ' + middleName + ' ' + lastName
+    
+    # 'if' statement - indentation matters!
+    if (s == s2):
+        print('yes!!!')
+    else:
+        print('nooooooo')
+    
+    # list (mutable sequence)
+    beatles = ['John', 'Paul', 'George']
+    beatles.append('Ringo')
+    
+    # 'for' loop - indentation matters!
+    for b in beatles:
+        print('Hello ' + b)
+    
+    # tuple (immutable sequence)
+    ages = (18, 21, 28, 21, 22, 18, 19, 34, 9)
+    
+    # set (no order, no duplicates)
+    uniqueAges = set(ages)
+    uniqueAges.add(18) # already in set, no effect
+    uniqueAges.remove(21)
+    
+    # no guaranteed order when iterating over a set
+    for thisAge in uniqueAges:
+        print(thisAge)
+    
+    # testing set membership
+    if 18 in uniqueAges:
+        print('There is an 18-year-old present!')
+    
+    # sorting
+    beatles.sort() # in-place
+    orderedUniqueAges = sorted(uniqueAges) # new list
+    
+    # dict - mapping unique keys to values
+    netWorth = {}
+    netWorth['Donald Trump'] = 3000000000
+    netWorth['Bill Gates'] = 58000000000
+    netWorth['Tom Cruise'] = 40000000
+    netWorth['Joe Postdoc'] = 20000
+    
+    # iterating over key-value pairs:
+    for (person, worth) in netWorth.items():
+        if worth < 1000000:
+            print('haha ' + person + ' is not a millionaire')
+    
+    # testing dict membership
+    if 'Tom Cruise' in netWorth:
+        print('show me the money!')
