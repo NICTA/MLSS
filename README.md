@@ -11,8 +11,12 @@ Be sure to click **I WANT PYTHON 3.4**. Direct download links are:
 
 ## Start IPython Notebook
 
+Find the Anaconda **Launcher** and launch:
 
     ipython notebook
+
+Your browser should open up to http://localhost:8888 and show your home directory.
+Find your way to the directory where you downloaded and unzipped the python-ml-tut
 
 
 If you run into trouble, ask one of the friendly tutors. Or start reading the notebook in 
@@ -42,13 +46,18 @@ Just make sure you have all the requirements installed for this tutorial by runn
 
 ## Intro to Python Cheatsheet
 
+Launch the IPython QT console
+
 ```python
+# This is a comment line
 # numbers and variables
 age = 26
 pi = 3.14159
 
 # strings and methods
 s = 'Hugh F Durrant-Whyte'
+
+# Strings have a method `split` which returns a list of strings split by whitespace
 tokens = s.split()
 firstName = tokens[0]
 middleName = tokens[1]
@@ -67,8 +76,14 @@ beatles.append('Ringo')
 print(beatles)
 
 # 'for' loop - indentation matters
-for b in beatles:
-    print('Hello ' + b)
+# Note that name is defined inside the for loop
+for name in beatles:
+    print('Hello ' + name)
+
+# Iterating over a range of numbers is easy
+# range has the following arguments (start, stop, step) where stop isn't included
+for number in range(2, 10, 2):
+    print(number)
 
 # tuple (immutable ordered sequence)
 ages = (18, 21, 28, 21, 22, 18, 19, 34, 9)
