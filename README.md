@@ -70,6 +70,9 @@ if s == s2:
 else:
     print('no')
 
+# if statements can also be inline
+answer = 'yes' if s == s2 else 'no' 
+
 # list (mutable ordered sequence)
 beatles = ['John', 'Paul', 'George']
 beatles.append('Ringo')
@@ -88,22 +91,32 @@ for number in range(2, 10, 2):
 # tuple (immutable ordered sequence)
 ages = (18, 21, 28, 21, 22, 18, 19, 34, 9)
 
+# Note you can't change the contents of a tuple
+
 # set (mutable, unordered, no duplicates)
 uniqueAges = set(ages)
 uniqueAges.add(18) # already in set, no effect
 uniqueAges.remove(21)
 
-# no guaranteed order when iterating over a set
-for thisAge in uniqueAges:
-    print(thisAge)
 
-# testing set membership
+# testing set membership (very fast)
 if 18 in uniqueAges:
     print('There is an 18-year-old present!')
 
-# sorting
-beatles.sort() # in-place
-orderedUniqueAges = sorted(uniqueAges) # new list
+# sorting a list
+sorted(beatles) # returns a new sorted list
+beatles.sort() # in-place - changes beatles list
+
+# Sorting a set returns a list
+orderedUniqueAges = sorted(uniqueAges)
+
+# There is no guaranteed order when iterating over a set
+for thisAge in uniqueAges:
+    print(thisAge)
+
+# Instead iterate over the sorted set:
+for age in sorted(uniqueAges):
+    print(age)
 
 # dict - mapping unique keys to values
 netWorth = {}
@@ -114,7 +127,7 @@ netWorth['Joe Postdoc'] = 20000
 
 # iterating over a dict gives keys
 for personName in netWorth:
-    print("{} is worth {}".format(personName, netWorth[personName]))
+    print(personName + " is worth " + netWorth[personName])
 
 # You can also iterate over key-value pairs:
 for (person, worth) in netWorth.items():
