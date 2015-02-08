@@ -46,7 +46,7 @@ Just make sure you have all the requirements installed for this tutorial by runn
 
 ## Intro to Python Cheatsheet
 
-Launch the IPython QT console
+Launch the IPython QT console and try run (and understand) these commands:
 
 ```python
 # This is a comment line
@@ -77,6 +77,8 @@ answer = 'yes' if s == s2 else 'no'
 beatles = ['John', 'Paul', 'George']
 beatles.append('Ringo')
 print(beatles)
+print('Ringo' in beatles)
+
 
 # 'for' loop - indentation matters
 # Note that name is defined inside the for loop
@@ -125,9 +127,13 @@ netWorth['Bill Gates'] = 58000000000
 netWorth['Tom Cruise'] = 40000000
 netWorth['Joe Postdoc'] = 20000
 
+# Access the value associated with a key
+print(netWorth['Donald Trump'])
+
 # iterating over a dict gives keys
 for personName in netWorth:
-    print(personName + " is worth " + netWorth[personName])
+    print(personName + " is worth: ", end='')
+    print(netWorth[personName])
 
 # You can also iterate over key-value pairs:
 for (person, worth) in netWorth.items():
