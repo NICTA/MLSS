@@ -43,36 +43,37 @@ Just make sure you have all the requirements installed for this tutorial by runn
 ## Intro to Python Cheatsheet
 
 ```python
-# numbers!
+# numbers and variables
 age = 26
 pi = 3.14159
 
-# strings!
-s = 'Rutherford Birchard Hayes'
+# strings and methods
+s = 'Hugh F Durrant-Whyte'
 tokens = s.split()
 firstName = tokens[0]
 middleName = tokens[1]
 lastName = tokens[2]
 s2 = firstName + ' ' + middleName + ' ' + lastName
 
-# 'if' statement - indentation matters!
-if (s == s2):
-    print('yes!!!')
+# 'if' statement - indentation matters
+if s == s2:
+    print('yes the strings are equal')
 else:
-    print('nooooooo')
+    print('no')
 
-# list (mutable sequence)
+# list (mutable ordered sequence)
 beatles = ['John', 'Paul', 'George']
 beatles.append('Ringo')
+print(beatles)
 
-# 'for' loop - indentation matters!
+# 'for' loop - indentation matters
 for b in beatles:
     print('Hello ' + b)
 
-# tuple (immutable sequence)
+# tuple (immutable ordered sequence)
 ages = (18, 21, 28, 21, 22, 18, 19, 34, 9)
 
-# set (no order, no duplicates)
+# set (mutable, unordered, no duplicates)
 uniqueAges = set(ages)
 uniqueAges.add(18) # already in set, no effect
 uniqueAges.remove(21)
@@ -96,12 +97,16 @@ netWorth['Bill Gates'] = 58000000000
 netWorth['Tom Cruise'] = 40000000
 netWorth['Joe Postdoc'] = 20000
 
-# iterating over key-value pairs:
+# iterating over a dict gives keys
+for personName in netWorth:
+    print("{} is worth {}".format(personName, netWorth[personName]))
+
+# You can also iterate over key-value pairs:
 for (person, worth) in netWorth.items():
     if worth < 1000000:
         print('haha ' + person + ' is not a millionaire')
 
-# testing dict membership
+# testing dict membership is the same as with a set
 if 'Tom Cruise' in netWorth:
     print('show me the money!')
 ```
