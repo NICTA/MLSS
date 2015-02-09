@@ -16,4 +16,5 @@ and Hierarchical Graphical Models - SOLUTIONS.ipynb`.
 * matplotlib
 * scipy
 * ipython[all]
+* lda
 * Pillow (for the K-means image demo)
