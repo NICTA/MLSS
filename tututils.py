@@ -4,25 +4,7 @@ import numpy as np
 import scipy.linalg as la
 from scipy.stats import chi2
 from scipy.spatial import Voronoi, voronoi_plot_2d
-
-from sklearn.cluster import KMeans
-from sklearn.datasets import make_moons, make_blobs
-from sklearn.metrics import euclidean_distances
-
-def kmeans_centers(X, k=3):
-    """
-    Helper function to calculate the cluster centers using sklearn's KMeans algorithm.
-
-    Returns the cluster centers.
-    """
-    # Compute clustering with sklearn's K-Means
-    k_means = KMeans(init='k-means++', n_clusters=k, n_init=10)
-    k_means.fit(X)
-    k_means_labels = k_means.labels_
-    k_means_cluster_centers = k_means.cluster_centers_
-    k_means_labels_unique = np.unique(k_means_labels)
-
-    return k_means_cluster_centers
+from sklearn.datasets import make_blobs
 
 
 def plot_2d_clusters(X, labels, centers):
@@ -92,7 +74,8 @@ def plot_2d_GMMs(X, labels, means, covs, percentcontour=0.66, npoints=30):
         scatter(cluster_center[0], cluster_center[1], c=col, marker='o', s=200)
 
         # covariance
-        L = la.cholesky(np.array(covs[k]) * chi2.ppf(percentcontour, [3]))
+        L = la.cholesky(np.array(covs[k]) * chi2.ppf(percentcontour, [3])
+                        + 1e-5 * np.eye(covs[k].shape[0]))
         covpoints = circle.dot(L) + means[k, :]
         plot(covpoints[:, 0], covpoints[:, 1], color=col, linewidth=3)
 
@@ -117,33 +100,17 @@ def load_2d_hard():
     well as the ground truth).
     """
 
-    centres = [[3, -1], [-2, 0], [0, 3]]
+    centres = np.array([[3., -1.], [-2., 0.], [2., 5.]])
     covs = []
-    covs.append([[3, 2], [2, 1]])
-    covs.append([[1, -2], [-2, 3]])
-    covs.append([[1, 0], [0, 1]])
+    covs.append(np.array([[4., 2.], [2., 1.5]]))
+    covs.append(np.array([[1., -2.], [-2., 3.]]))
+    covs.append(np.array([[1., 0.], [0., 1.]]))
 
-    X0 = np.random.multivariate_normal(centres[0], covs[0], 1000)
-    X1 = np.random.multivariate_normal(centres[1], covs[1], 500)
-    X2 = np.random.multivariate_normal(centres[2], covs[2], 300)
+    X0 = np.random.multivariate_normal(centres[0, :], covs[0], 1000)
+    X1 = np.random.multivariate_normal(centres[1, :], covs[1], 500)
+    X2 = np.random.multivariate_normal(centres[2, :], covs[2], 300)
 
     X = np.concatenate((X0, X1, X2))
     labels = np.concatenate((np.zeros(1000), np.ones(500), 2*np.ones(300)))
 
     return X, labels
-
-
-def ex1():
-
-    # Load X from a dataset generation function from tututils
-    X = load_2d_simple()
-
-    # Calculate M from X
-    k_means_cluster_centers = kmeans_centers(X, 3)
-
-    # Now calculate Z from X and M, probably using numpy's argmin()
-    # CHANGE ME
-    k_means_labels = np.ones(len(X))
-
-    # Check your answer by plotting the clusters:
-    plot_2d_clusters(X, k_means_labels, k_means_cluster_centers)
