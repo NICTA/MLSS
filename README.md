@@ -1,5 +1,8 @@
 # Cluster and Graphical Models Tutorial for MLSS 2015
 
+**Authors**: [Daniel Steinberg](http://www.daniel-steinberg.info/) & [Brian Thorne](http://hardbyte.bitbucket.org/)
+**Institute**: [NICTA](https://www.nicta.com.au/)
+
 The main tutorial notebook is the file `Clustering and Hierarchical Graphical
 Models.ipynb`, and the worked solutions can be found in the file `Clustering
 and Hierarchical Graphical Models - SOLUTIONS.ipynb`.
