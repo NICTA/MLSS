@@ -257,10 +257,10 @@ def hard_data():
 
 def nonlinear_example():
     X, Y, Z = hard_data()
-    fig = pl.figure(figsize=(20,10))
-    ax = fig.add_subplot(121)
+    fig = pl.figure(figsize=(10,20))
+    ax = fig.add_subplot(211)
     ax.scatter(X[:, 0], X[:, 1], c=Y, cmap=pl.cm.Paired)
-    ax = fig.add_subplot(122, projection='3d')
+    ax = fig.add_subplot(212, projection='3d')
     ax.scatter(X[:,0]**2, X[:,1]**2, Z, c=Y, cmap=pl.cm.Paired)
     pl.show()
 
