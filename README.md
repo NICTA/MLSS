@@ -1,4 +1,4 @@
-# Cluster and Graphical Models Tutorial for MLSS 2015
+# Cluster and Latent Variable Models Tutorial for MLSS 2015
 
 **Authors**: [Daniel Steinberg](http://www.daniel-steinberg.info/) & [Brian Thorne](http://hardbyte.bitbucket.org/)
 
