@@ -1,4 +1,6 @@
-# Cluster and Latent Variable Models Tutorial for MLSS 2015
+#
+Clus://github.com/dsteinberg/MLSScluster/blob/master/Clustering%20and%20Latent%20Variable%20Models%20-%20SOLUTIONS.ipynblustering and Hierarchical Graphical
+Models.ipynbter and Latent Variable Models Tutorial for MLSS 2015
 
 **Authors**: [Daniel Steinberg](http://www.daniel-steinberg.info/) & [Brian Thorne](http://hardbyte.bitbucket.org/)
 
