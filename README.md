@@ -18,6 +18,7 @@ open the corresponding notebook in the directory where you have downloaded the
 tutorials, and then work through the exercises in your browser.
 
 This repository contains the first four labs for MLSS 2015 Syndey:
+
 1. [Introduction to Python and PCA](https://github.com/NICTA/MLSS/tree/master/Intro%20and%20PCA)
 2. [Linear Regression](https://github.com/NICTA/MLSS/tree/master/Linear%20Regression)
 3. [Classification](https://github.com/NICTA/MLSS/tree/master/classification)
@@ -30,6 +31,7 @@ as well as how to set up your python environment.
 ## Preview and Solutions
 
 You can preview all of the lab solutions here:
+
 1. [Introduction to Python and PCA](http://nbviewer.ipython.org/github/NICTA/MLSS/blob/master/Intro%20and%20PCA/Intro%20to%20python%20Answers.ipynb)
 2. [Linear Regression](http://nbviewer.ipython.org/github/NICTA/MLSS/blob/master/Linear%20Regression/linearRegressionAnswers.ipynb)
 3. [Classification](http://nbviewer.ipython.org/github/NICTA/MLSS/blob/master/classification/Classification_solutions.ipynb)
