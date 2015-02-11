@@ -22,5 +22,5 @@ You can view the solutions online [here at nbviewer](http://nbviewer.ipython.org
 * matplotlib
 * scipy
 * ipython[all]
-* lda
+* lda (this may also require pbr)
 * Pillow
