@@ -1,6 +1,4 @@
-#
-Clus://github.com/dsteinberg/MLSScluster/blob/master/Clustering%20and%20Latent%20Variable%20Models%20-%20SOLUTIONS.ipynblustering and Hierarchical Graphical
-Models.ipynbter and Latent Variable Models Tutorial for MLSS 2015
+#Clustering and Latent Variable Models Tutorial for MLSS 2015
 
 **Authors**: [Daniel Steinberg](http://www.daniel-steinberg.info/) & [Brian Thorne](http://hardbyte.bitbucket.org/)
 
@@ -10,7 +8,7 @@ The main tutorial notebook is the file `Clustering and Latent Variable
 Models.ipynb`, and the worked solutions can be found in the file `Clustering
 and Latent Variable Models - SOLUTIONS.ipynb`.
 
-You can view the solutions online [here at nbviewer](http://nbviewer.ipython.org/github/dsteinberg/MLSScluster/blob/master/Clustering%20and%20Hierarchical%20Graphical%20Models%20-%20SOLUTIONS.ipynb).
+You can view the solutions online [here at nbviewer](http://nbviewer.ipython.org/github/NICTA/MLSS/blob/master/clustering/Clustering%20and%20Latent%20Variable%20Models%20-%20SOLUTIONS.ipynb).
 
 ## File manifest
 * `Clustering and Latent Variable Models.ipynb` - the tutorial
@@ -25,4 +23,4 @@ You can view the solutions online [here at nbviewer](http://nbviewer.ipython.org
 * scipy
 * ipython[all]
 * lda
-* Pillow (for the K-means image demo)
+* Pillow
