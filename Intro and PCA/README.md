@@ -1,13 +1,9 @@
 # Getting Started
 
-## Download Python 3.4
+## Download Python (2.7 or 3.4)
 
-Install the Anaconda Python distribution from [continuum.io](http://continuum.io/downloads#py34).
-Be sure to click **I WANT PYTHON 3.4**. Direct download links are:
-
-- [Anaconda Python 3.4 - Windows 64](http://repo.continuum.io/anaconda3/Anaconda3-2.1.0-Windows-x86_64.exe)
-- [Anaconda Python 3.4 - OSX](http://repo.continuum.io/anaconda3/Anaconda3-2.1.0-MacOSX-x86_64.pkg)
-
+Install the Anaconda Python distribution from [continuum.io](http://continuum.io/downloads).
+If you want Python 3.4 be sure to click **I WANT PYTHON 3.4**. 
 
 ## Start IPython Notebook
 
@@ -16,18 +12,17 @@ Find the Anaconda **Launcher** and launch:
     ipython notebook
 
 Your browser should open up to http://localhost:8888 and show your home directory.
-Find your way to the directory where you downloaded and unzipped the python-ml-tut
-
+Find your way to the directory where you downloaded and unzipped the MLSS tutorials.
 
 If you run into trouble, ask one of the friendly tutors. Or start reading the notebook in 
-readonly mode at [nbviewer.ipython.org](http://nbviewer.ipython.org/github/hardbyte/python-ml-tut/blob/master/Intro%20to%20python.ipynb)
+readonly mode at [nbviewer.ipython.org](http://nbviewer.ipython.org/github/NICTA/MLSS/blob/master/Intro%20and%20PCA/Intro%20to%20python.ipynb)
 
 ## Begin the tutorial
 
 Open the `Intro to python.ipynb` Notebook and start working through the exercises.
 
 
-## Already have Python 3.4?
+## Already have Python?
  
 Just make sure you have all the requirements installed for this tutorial by running:
 
