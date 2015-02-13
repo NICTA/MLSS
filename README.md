@@ -47,6 +47,6 @@ General:
 * scipy
 * ipython[all]
 
-And optionally for the clustering lab:
+The above can all be checked using the `Dependency checker.ipynb` script in this repo. Optionally for the clustering lab:
 * lda (may require you to also pull down pbr)
 * Pillow
