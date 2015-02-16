@@ -24,7 +24,7 @@ This repository contains the first four labs for MLSS 2015 Syndey:
 3. [Classification](https://github.com/NICTA/MLSS/tree/master/classification)
 4. [Clustering and Latent Variable Models](https://github.com/NICTA/MLSS/tree/master/clustering)
 
-You can find the general lab instructions [here](http://tinyurl.com/ldtpuez),
+You can find the general lab instructions [here](http://tinyurl.com/m62udcy),
 as well as how to set up your python environment.
 
 
