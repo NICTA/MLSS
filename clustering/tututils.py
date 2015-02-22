@@ -100,17 +100,18 @@ def load_2d_hard():
     well as the ground truth).
     """
 
-    centres = np.array([[3., -1.], [-2., 0.], [2., 5.]])
+    centres = np.array([[3., -1.], [-2., 1.], [2., 5.]])
     covs = []
     covs.append(np.array([[4., 2.], [2., 1.5]]))
-    covs.append(np.array([[1., -2.], [-2., 3.]]))
+    covs.append(np.array([[1, -1.5], [-1.5, 3.]]))
     covs.append(np.array([[1., 0.], [0., 1.]]))
 
-    X0 = np.random.multivariate_normal(centres[0, :], covs[0], 1000)
-    X1 = np.random.multivariate_normal(centres[1, :], covs[1], 500)
-    X2 = np.random.multivariate_normal(centres[2, :], covs[2], 300)
+    N = [1000, 500, 300]
 
-    X = np.concatenate((X0, X1, X2))
-    labels = np.concatenate((np.zeros(1000), np.ones(500), 2*np.ones(300)))
+    X = [np.random.randn(n, 2).dot(la.cholesky(c, lower=True)) + m
+         for n, m, c in zip(N, centres, covs)]
+    X = np.vstack(X)
+
+    labels = np.concatenate((np.zeros(N[0]), np.ones(N[1]), 2*np.ones(N[2])))
 
     return X, labels
